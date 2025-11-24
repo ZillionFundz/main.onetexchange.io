@@ -1,0 +1,915 @@
+*,
+*::before,
+*::after {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+/* ...existing code... */
+:root {
+    --ui-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+html {
+    font-family: var(--ui-font);
+    font-size: clamp(12px, 0.9vw, 14px);
+    /* tiny, responsive base */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    line-height: 1.35;
+    color: #111;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* explicit weights so you can notice changes */
+.coin-ticker {
+    font-weight: 700;
+}
+
+.coin-value {
+    font-weight: 300;
+}
+
+/* ...existing code... */
+
+
+
+
+
+.container {
+    margin: auto;
+    /* max-width: 350px; */
+    min-width: 250px;
+    max-width: 700px;
+    min-height: 100vh;
+    background: #dddfe2;
+    overflow: hidden;
+    /* margin-bottom: 65px; */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: #0166ff; */
+    padding: 10px 15px;
+    /* border-bottom: 4px solid#5025d1; */
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.header img {
+    width: 28px;
+    margin: 0px;
+}
+
+.wallet-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 10px;
+    background: #5025d1;
+    /* border: 0.5px solid #000; */
+    border-radius: 7px;
+    gap: 5px;
+}
+
+.wallet-box span {
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(12px, 0.5vw, 100px);
+}
+
+.scanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    background: #5025d1;
+    /* border: 0.5px solid #000; */
+    border-radius: 7px;
+}
+
+.controls-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+    background: #dadcdf;
+}
+
+.balance-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(12px, 0.5vw, 100px);
+    margin: 10px 0px 5px;
+}
+
+.balance-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* RULES FOR MASKING AMOUNTS HERE:👇 */
+.balance-details .toggle-eye {
+    color: #292929;
+    /* color: #dd2c2c; */
+    font-size: clamp(14px, 0.5vw, 100px);
+    padding: 4px 0px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.amount-details {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(10px, 0.5vw, 100px);
+    margin: 0px;
+}
+
+.amount-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    margin: 2px 0px 2px;
+    padding: 0px;
+}
+
+#pnl {
+    color: #11b928;
+}
+
+.amount {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: clamp(24px, 0.3vw, 100px);
+    /* font-size: 1.5rem; */
+    font-weight: bold;
+    margin: 0px 2px;
+    padding: 2px 0px;
+}
+
+.exchange {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    /* width: 10vw; */
+    /* background: red; */
+    margin: 5px 0px 5px;
+}
+
+.fa-solid,
+.fa-solid-footer {
+    color: #d3d2d2;
+    font-size: clamp(25px, 0.5vw, 100px);
+    margin: 0px;
+    padding: 0 0px;
+}
+
+.fa-solid {
+    color: #d3d2d2;
+    font-size: clamp(25px, 0.5vw, 100px);
+    margin: 0px;
+    padding: 0px;
+    user-select: none;
+}
+
+.fa-solid:hover {
+    color: #000;
+}
+
+.fa-head {
+    color: #292929;
+    /* font-size: clamp(26px, 0.5vw, 100px); */
+    padding: 4px 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.fa-footer {
+    color: #292929;
+    /* font-size: clamp(26px, 0.5vw, 100px); */
+    margin: 0px;
+    padding: 4px 0px;
+}
+
+.fa-footer:hover {
+    color: #000;
+    font-size: clamp(26px, 0.5vw, 100px);
+    border-bottom: 2px solid #04ec65;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(14px, 0.5vw, 100px);
+    padding: 10px 45px;
+    background: #0166ff;
+    color: #d3d2d2;
+    border: none;
+    gap: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+    min-width: 23vw;
+    max-width: 20vw;
+    cursor: pointer;
+}
+
+.swap-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0px;
+    padding: 5px 0px;
+    background: #fff;
+    min-width: 100%;
+    gap: 2px;
+    position: relative;
+}
+
+.swap-icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 15vw;
+    max-width: 45px;
+    max-height: 50px;
+    margin: 0px;
+    padding: 5px;
+    border: 2px solid #fff;
+    border-radius: 30%;
+    position: absolute;
+    /* background: #0166ff; */
+    /* background: #5d5d5e; */
+    background: #5025d1;
+    /* transform: translate(-50%, -50%); */
+}
+
+.swap-icon {
+    color: #d3d2d2;
+    font-size: clamp(18px, 0.5vw, 100px);
+    margin: 0px;
+    padding: 0px;
+}
+
+.swap-box-a,
+.swap-box-b {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
+    padding: 10px 5px;
+    width: 50%;
+    height: 100px;
+    gap: 20px;
+    background: #dadcdf;
+
+}
+
+.swap-box-a {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.swap-box-b {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.chosing-swap-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.chosing-swap-box button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 50px; */
+    min-width: 70px;
+    width: 10vw;
+    max-width: 25vw;
+    margin: 0px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.fa-chose-chevron {
+    font-size: clamp(14px, 0.5vw, 100px);
+    color: #5d5d5e;
+}
+
+.swap-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(12px, 0.4vw, 100px);
+    font-weight: bold;
+}
+
+.swap-amount {
+    font-size: clamp(18px, 0.4vw, 100px);
+    font-weight: bold;
+    color: #5d5d5e;
+}
+
+.transaction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    /* width: 60vw; */
+    /* background: red; */
+    margin: 10px 0px 5px;
+}
+
+.trx-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(14px, 0.5vw, 100px);
+    padding: 10px 45px;
+    background: #0166ff;
+    color: #d3d2d2;
+    border: none;
+    gap: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+    min-width: 15vw;
+    max-width: 15vw;
+    cursor: pointer;
+}
+
+#buy {
+    background: #5025d1;
+}
+
+#swap {
+    background: #05c957;
+}
+
+#sell {
+    background: #5025d1;
+}
+
+.trending-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(16px, 0.5vw, 100px);
+    font-weight: bold;
+    padding: 0px 15px;
+    margin: 10px 0px 2px;
+}
+
+.trending-area {
+    width: 100%;
+    padding: 5px 0px 5px 10px;
+    background: #dadcdf;
+    /* background: linear-gradient(360deg, #dadcdf, #5025d1, #5025d1); */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* flex-direction: column; */
+    gap: 30px;
+    /* margin-top: 10px; */
+}
+
+.trending-card {
+    font-size: clamp(14px, 0.5vw, 100px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 165px;
+    /* max-width: 500px; */
+    height: 62px;
+    /* background: #d34c4c; */
+    /* background: #68688b; */
+    background: #545474;
+    border-radius: 10px;
+    margin: 0px;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+}
+
+.coin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coin-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 1px;
+    border-radius: 50%;
+    /* background: #000; */
+    border: 0.5px solid #000;
+}
+
+.coin-logo img {
+    margin: 0px;
+    padding: 0px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #c9c4c4;
+}
+
+.ticker-and-trend-value {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 2px;
+    text-align: right;
+}
+
+.ticker-and-value {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.coin-ticker {
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-size: clamp(14px, 0.5vw, 100px);
+    font-weight: bold;
+    color: #dfdede;
+}
+
+.coin-value {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(12px, 0.5vw, 100px);
+    color: #b8b8b8;
+    transition: color 0.5s ease;
+}
+
+/* THIS CODE IS FOR DIFERENT COLOR IN PRICE CHANGES: 👇*/
+
+/* color states: match when class is on the element itself or on the .coin-value child */
+.price-up,
+.coin-value.price-up {
+    color: #04ec65 !important;
+    /* green when up ≥ +0.01% */
+}
+
+.price-down,
+.coin-value.price-down {
+    /* color: #e03b3b !important; */
+    color: #ff5e66 !important;
+    /* red when down ≤ -0.01% */
+}
+
+.price-error,
+.coin-value.price-error {
+    color: #888888 !important;
+    /* neutral/error */
+}
+
+.percentage-change-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-and-amount {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 1px;
+    text-align: right;
+}
+
+.coin-volume {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(14px, 0.5vw, 100px);
+    font-weight: bold;
+    color: #dfdede;
+}
+
+.coin-amount {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(12px, 0.5vw, 100px);
+    color: #b8b8b8;
+}
+
+.percentage-change {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    background: #6e668a;
+    border: none;
+    /* color: gold; */
+    min-width: 80px;
+}
+
+/* Last-column percentage change styles */
+.percentage-change {
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 150ms ease;
+    white-space: nowrap;
+}
+
+/* Up / down indicator before the value */
+.percentage-change.positive::before {
+    content: '▲ ';
+}
+
+.percentage-change.negative::before {
+    content: '▼ ';
+}
+
+/* Colors (adjust to match your theme) */
+.percentage-change.positive {
+    color: #04ec65;
+}
+
+/* green */
+.percentage-change.negative {
+    color: #ff5e66;
+}
+
+/* red */
+
+/* Small styling for trend-change when appended elsewhere */
+.trend-change {
+    font-weight: 600;
+    margin-left: 6px;
+    font-size: 0.85rem;
+}
+
+.trend-change.positive {
+    /* color: #16a34a; */
+    color: #04ec65;
+}
+
+.trend-change.negative {
+    /* color: #ef4444; */
+    color: #ff5e66;
+}
+
+/* SWIPER STYLING HERE:👇 */
+.trending-swiper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+
+.swiper-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.swiper-slide {
+    width: auto;
+    flex-shrink: 0;
+}
+
+
+/* FETCHING CRYPTO PRICES ERROR STYLING:👇 */
+
+.price-error {
+    color: #ff0000;
+    font-size: 0.8em;
+}
+
+.price-loading {
+    opacity: 0.5;
+}
+
+.listed-control-area {
+    margin: 0px;
+    padding: 5px 30px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    /* background: #454563; */
+    /* background: #dadcdf; */
+    background: #6c6583;
+    background: linear-gradient(360deg, #5025d1, #5025d1, #dadcdf);
+    border-bottom: 4px solid #424244;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 100px;
+    height: 25px;
+    /* background: #3b3b50; */
+}
+
+.tabs button {
+    width: 60px;
+    height: 25px;
+    border: none;
+    background: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(14px, 0.5vw, 100px);
+    font-weight: bold;
+    /* color: #292929; */
+    color: #d3d2d2;
+    border: 0.5px solid #1e1e85;
+    border-radius: 10px;
+}
+
+.tabs button:hover {
+    border-bottom: 2px solid #04ec65;
+    background: rgb(86, 48, 202);
+    /* color: #d3d2d2; */
+    color: #292929;
+}
+
+/* .tabs #active {
+    border-bottom: 2px solid #04ec65;
+} */
+
+.tabs button:active {
+    border-bottom: 2px solid #0166ff;
+}
+
+.listed-area {
+    font-size: clamp(14px, 0.5vw, 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    background: #6c6583;
+    margin: 0px;
+    padding: 10px 10px 80px;
+}
+
+.listed-card {
+    font-size: clamp(14px, 0.5vw, 100px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100%;
+    height: 62px;
+    background: #545474;
+    border-radius: 5px;
+    margin: 0px;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+}
+
+.coin-and-ticker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.nft-card {
+    display: none;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.nft-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    background: #fff;
+}
+
+.nft-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nft-controls button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nft-controls .nft-counter {
+    font-size: 0.9rem;
+    color: #444;
+    min-width: 48px;
+    text-align: center;
+}
+
+
+.more-listed button {
+    background: none;
+    margin: 4px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    color: #68ffb8;
+    border: 1px solid #424244;
+}
+
+.more-listed button:hover {
+    border: none;
+    color: #ffffff;
+    border-bottom: 2px solid #04ec65;
+    background: #5025D1;
+    color: #d3d2d2;
+}
+
+.more-listed button:active {
+    border: 1px solid #000;
+    border-bottom: 2px solid #0166ff;
+    background: #4f2cb8;
+    color: #d3d2d2;
+}
+
+/* ...HIDEN AND REVEAL LISTED COINS HERE, TO REVEAL WHEN BUTTON IS CLICKED...👇 */
+
+.hidden-coin {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.hidden-coin.visible {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ...existing code... */
+
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #5025D1;
+    color: #ffffff;
+    /* border-top: 4px solid #545474; */
+    border-top: 4px solid #424244;
+    font-size: clamp(12px, 0.5vw, 100px);
+    text-align: center;
+    width: 100%;
+    min-height: 70px;
+    position: fixed;
+    margin: 0px;
+    padding: 10px 65px;
+    bottom: 0;
+    /* right: 0; */
+    left: 50%;
+    max-width: 704px;
+    border-radius: 8px 8px 0 0;
+    backdrop-filter: blur(45px);
+    transform: translateX(-50%);
+}
+
+.footer-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0px;
+    padding: 0px;
+    color: #d3d2d2;
+}
+
+
+/* MEDIA QUERY STARTA HERE: 👇 */
+
+@media screen and (max-width: 450px) {
+    .container {
+        margin: auto;
+        /* max-width: 350px; */
+        min-width: 240px;
+        max-width: 100%;
+        min-height: 100vh;
+        background: #dddfe2;
+        overflow: hidden;
+        /* margin-bottom: 65px; */
+        /* padding-bottom: 130px; */
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(16px, 0.5vw, 100px);
+        padding: 10px 45px;
+        background: #0166ff;
+        border: none;
+        border-radius: 10px;
+        min-width: 40vw;
+        max-width: 20vw;
+    }
+
+    .trx-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(16px, 0.5vw, 100px);
+        padding: 10px 40px;
+        background: #0166ff;
+        border: none;
+        /* border-radius: 5px; */
+        min-width: 25vw;
+        max-width: 20vw;
+    }
+
+    .listed-control-area {
+        margin: 0px;
+        padding: 5px 20px;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        /* background: #454563; */
+        /* background: #dadcdf; */
+        background: #6c6583;
+        background: linear-gradient(360deg, #5025d1, #5025d1, #dadcdf);
+        border-bottom: 4px solid #424244;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        background: #5025D1;
+        color: #ffffff;
+        /* border-top: 4px solid #545474; */
+        border-top: 4px solid #424244;
+        font-size: clamp(12px, 0.5vw, 100px);
+        text-align: center;
+        width: 100%;
+        /* height: 65px; */
+        position: fixed;
+        margin: 0px;
+        padding: 10px 25px;
+        bottom: 0;
+        /* right: 0; */
+        left: 50%;
+        max-width: 704px;
+        border-radius: 8px 8px 0 0;
+        backdrop-filter: blur(45px);
+        transform: translateX(-50%);
+    }
+}
