@@ -102,7 +102,8 @@ window.coinIdMap = {
     ice: 'ice',
     one: 'harmony',
     dogs: 'dogs-2',
-    dogecoin: 'dogecoin'
+    dogecoin: 'dogecoin',
+    tether: 'tether'
 };
 
 // Price formatting
@@ -241,7 +242,7 @@ async function updateCryptoPrices() {
             }
 
             // update holding amount if present
-            const container = target.closest('.listed-card') || target.closest('.trending-card') || target.parentElement;
+            const container = target.closest('.listed-card') || target.closest('.trending-card') || target.closest('.popup-card') || target.parentElement;
             if (container) {
                 const volumeEl = container.querySelector('.coin-volume');
                 const amountEl = container.querySelector('.coin-amount');
@@ -297,6 +298,267 @@ toggleEye.addEventListener('click', () => {
         document.getElementById('total-assets').textContent = isCurrent;
         isVisible = true;
     }
+});
+
+//POPUP NOTIFICATIONS AND ANIMATED PAGES START HERE:...👇
+const fromCoinTicker = document.getElementById('chosen-ticker-from');
+const toCoinTicker = document.getElementById('chosen-ticker-to');
+const fromCoinBtn = document.getElementById('swap-from-button');
+const toCoinBtn = document.getElementById('swap-to-button');
+const fromCoinAmount = document.getElementById('swap-from-amount');
+const toCoinAmount = document.getElementById('swap-to-amount');
+const popUp = document.getElementById('popup');
+const overlay = document.getElementById('swap-overlay');
+const exitBtn = document.getElementById('exit-btn');
+const searchToken = document.getElementById('search-token');
+const swapSwitchBtn = document.getElementById('swap-switch');
+const swapSwitchIcon = document.getElementById('swap-switch-icon');
+const swapFromLogo = document.getElementById('chosen-logo-from');
+const swapToLogo = document.getElementById('chosen-logo-to');
+const swapNetworkLogo = document.getElementById('swap-network-Logo');
+const swapBtn = document.getElementById('swap-btn');
+const errorMessage = document.getElementById('error-message');
+const circleInfo = document.getElementById('circle-info');
+const notificationPopup = document.getElementById('notification-popup');
+const notificationExitBtn = document.getElementById('notification-exit-btn');
+const notificationCancel = document.getElementById('notification-cancel');
+const notificationOk = document.getElementById('notification-ok');
+
+
+
+// SELECTING A COIN FROM THE POPUP CARDS:...👇
+const popupCards = document.querySelectorAll('.popup-card');
+const chosenLogoFrom = document.getElementById('chosen-logo-from');
+const chosenLogoTo = document.getElementById('chosen-logo-to');
+const chosenTickerFrom = document.getElementById('chosen-ticker-from');
+const chosenTickerTo = document.getElementById('chosen-ticker-to');
+
+
+
+let currentSelection = null;
+// can be "from" or "to"
+
+// FROM button
+fromCoinBtn.addEventListener('click', () => {
+    currentSelection = "from";
+    openPopup();
+});
+
+// TO button
+toCoinBtn.addEventListener('click', () => {
+    currentSelection = "to";
+    openPopup();
+});
+
+function openPopup() {
+    document.body.classList.add("no-scroll");
+    overlay.style.display = 'block';
+    popUp.style.display = 'block';
+    popUp.style.marginTop = '20px';
+
+    setTimeout(() => {
+        popUp.style.bottom = '0%';
+    }, 200);
+}
+
+// Add click listeners ONCE
+popupCards.forEach(card => {
+    card.addEventListener('click', () => {
+
+        const logoImg = card.querySelector('img');
+        const tickerText = card.querySelector('span');
+
+        if (currentSelection === "from") {
+            if (logoImg) chosenLogoFrom.src = logoImg.src;
+            if (tickerText) chosenTickerFrom.textContent = tickerText.textContent;
+        }
+
+        if (currentSelection === "to") {
+            if (logoImg) chosenLogoTo.src = logoImg.src;
+            if (tickerText) chosenTickerTo.textContent = tickerText.textContent;
+        }
+
+        closePopup();
+    });
+});
+
+
+
+
+
+
+//DRAG VARIABLES HERE:...👇
+let startY = 0;
+let currentY = 0;
+let dragging = false;
+
+popUp.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+    dragging = true;
+    popUp.style.transition = 'none'; // Disable transition during drag
+});
+
+popUp.addEventListener('touchmove', (e) => {
+    if (!dragging) return;
+    currentY = e.touches[0].clientY;
+    let diffY = currentY - startY;
+    if (diffY > 0) { // Only allow dragging downwards
+        popUp.style.transform = `translateY(${diffY}px)`; // Move the popup with finger
+    }
+});
+
+popUp.addEventListener('touchend', () => {
+    dragging = false;
+    popUp.style.transition = 'bottom 0.5s ease, transform 0.25s ease'; // Re-enable transition
+
+    //if dragged down enough, close it
+    if (currentY - startY > 350) {
+        closePopup();
+    } else {
+        //Return to normal
+        popUp.style.transform = 'translateY(0)';
+    }
+});
+
+function closePopup() {
+    popUp.style.bottom = '-100%';
+    popUp.style.transform = 'translateY(0)';
+    setTimeout(() => {
+        popUp.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.classList.remove("no-scroll");
+        searchToken.value = '';
+    }, 300);
+}
+
+
+overlay.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    popUp.style.display = 'none';
+    popUp.style.bottom = '-100%';
+    searchToken.value = '';
+
+    //FOR CLOSING THE NOTIFICATION POPUP
+    // fromCoinAmount.value = '';
+    // toCoinAmount.textContent = '$0.0000';
+    notificationPopup.style.top = "45%";
+    notificationPopup.style.opacity = "0";
+    notificationPopup.style.visibility = "hidden";
+    notificationPopup.style.transform = "translate(-50%, -50%) scale(0.1)";
+    document.body.classList.remove("no-scroll");
+});
+
+exitBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    popUp.style.display = 'none';
+    popUp.style.bottom = '-100%';
+    searchToken.value = '';
+    document.body.classList.remove("no-scroll");
+});
+
+
+
+//Clicking the Inter-Switch button changes the Swapping icon order: (From and To).
+const swapALogo = swapFromLogo;
+const swapBLogo = swapToLogo;
+let srcA = swapALogo.getAttribute("src");
+let srcB = swapBLogo.getAttribute("src");
+
+//When user chooses a new token from first option to swap, update the logos accordingly
+function swapChoiceA(newSrc) {
+    swapALogo.src = newSrc;
+}
+
+//When user chooses a new token from second option to swap, update the logos accordingly
+function swapChoiceB(newSrc) {
+    swapBLogo.src = newSrc;
+}
+
+//Clicking the Inter-Switch button changes the Swapping order: (From and To).
+swapSwitchBtn.addEventListener('click', () => {
+    let isDefault = false;
+    if (!isDefault) {
+        const temp = fromCoinTicker.textContent;
+        fromCoinTicker.textContent = toCoinTicker.textContent;
+        toCoinTicker.textContent = temp;
+        isDefault = true;
+    } else {
+        const temp = fromCoinTicker.textContent;
+        fromCoinTicker.textContent = toCoinTicker.textContent;
+        toCoinTicker.textContent = temp;
+        isDefault = false;
+    }
+
+    // SWITCHING THE LOGOS TOO:...👇
+    const tempLogo = swapALogo.src;
+    swapALogo.src = swapBLogo.src;
+    swapBLogo.src = tempLogo;
+
+});
+
+
+
+//WSAPPING ERROR HERE....!
+swapBtn.addEventListener('click', () => {
+
+    try {
+        const rawValue = fromCoinAmount.value.trim();
+
+        if (rawValue === "") {
+            throw new Error("Enter amount...!");
+        }
+
+        const amount = Number(rawValue);
+        if (isNaN(amount)) {
+            throw new Error("invalid input!");
+        }
+
+        if (amount < 2) {
+            throw new Error("Minimum Swap = $2");
+        }
+
+        errorMessage.style.display = "none";
+        circleInfo.style.color = "#dadcdf";
+        document.body.classList.add("no-scroll");
+        notificationPopup.style.top = "60%";
+        notificationPopup.style.opacity = "1";
+        notificationPopup.style.visibility = "visible";
+        notificationPopup.style.transform = "translate(-50%, -50%) scale(1)";
+        overlay.style.display = "block";
+
+    } catch (err) {
+        errorMessage.style.display = "block";
+        errorMessage.textContent = err.message;
+        circleInfo.style.color = "#f83838";
+    }
+
+});
+
+notificationExitBtn.addEventListener('click', () => {
+    // fromCoinAmount.value = '';
+    // toCoinAmount.textContent = '$0.0000';
+    document.body.classList.remove("no-scroll");
+    notificationPopup.style.top = "45%";
+    notificationPopup.style.opacity = "0";
+    notificationPopup.style.visibility = "hidden";
+    notificationPopup.style.transform = "translate(-50%, -50%) scale(0.1)";
+    overlay.style.display = "none";
+});
+
+notificationCancel.addEventListener('click', () => {
+    // fromCoinAmount.value = '';
+    // toCoinAmount.textContent = '$0.0000';
+    document.body.classList.remove("no-scroll");
+    notificationPopup.style.top = "45%";
+    notificationPopup.style.opacity = "0";
+    notificationPopup.style.visibility = "hidden";
+    notificationPopup.style.transform = "translate(-50%, -50%) scale(0.1)";
+    overlay.style.display = "none";
+});
+
+notificationOk.addEventListener('click', () => {
+    const usd = document.getElementById('')
+    fromCoinAmount.value
 });
 
 
@@ -392,23 +654,36 @@ toggleEye.addEventListener('click', () => {
 updateCryptoPrices();
 setInterval(updateCryptoPrices, POLL_INTERVAL_MS);
 
+
+
 // View More button
 const viewMoreBtn = document.getElementById('viewMoreBtn');
 if (viewMoreBtn) {
     viewMoreBtn.addEventListener('click', function () {
         const hiddenCoins = document.querySelectorAll('.hidden-coin');
+
+        // Toggle logic
+        let isOpening = true;
+
         hiddenCoins.forEach(coin => {
             if (coin.classList.contains('visible')) {
+                isOpening = false;
                 coin.classList.remove('visible');
                 this.textContent = 'View More';
             } else {
                 coin.classList.add('visible');
-                this.textContent = 'View Less';
             }
         });
+
+        // Update button content + icon
+        if (isOpening) {
+            this.innerHTML = 'View Less <i class="fa fa-chevron-up"></i>';
+        } else {
+            this.innerHTML = 'View More <i class="fa fa-chevron-down"></i>';
+        }
+
         updateCryptoPrices();
     });
 }
 
 // End of script.js
-
