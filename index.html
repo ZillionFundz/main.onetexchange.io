@@ -21,7 +21,11 @@
                     <i class="fa-solid fa-wallet"></i>
                     <span>ONET-Wallet</span>
                 </div>
-
+                <div class="swap-networks-all">
+                    <img src="Images/bnb.png" alt="">
+                    <i class="fa-all-networks popup-icon fa-solid fa-chevron-down"></i>
+                    <!-- <button id="network-btn" class="network-btn">Network</button> -->
+                </div>
             </div>
             <div class="scanner">
                 <i class="fa-solid fa-qrcode"></i>
@@ -30,15 +34,15 @@
         <div class="controls-panel">
             <div class="balance-box">
                 <div class="balance-details">
-                    <span>Balance</span>
+                    <span>Total Balance</span>
                     <i id="toggle-eye" class="toggle-eye fa-solid fa-eye"></i>
                     <!-- <i class="fa-solid fa-eye-slash"></i> -->
                 </div>
                 <div class="amount-group">
                     <!-- <div class="amount">$</div> -->
-                    <div id="total-assets" class="amount">0.0000</div>
+                    <div id="total-assets" class="amount">$0.0000</div>
                 </div>
-                <label for="amount-details" id="pnl">+$25 (125% PNL)</label>
+                <label for="amount-details" id="pnl">+$63 (219% PNL)</label>
             </div>
             <div class="exchange">
                 <button id="send-btn" class="cta-buttons">
@@ -53,25 +57,64 @@
             <div class="swap-area">
                 <div class="swap-box-a">
                     <div class="chosing-swap-box">
-                        <span class="swap-label">$ONE</span>
+                        <div class="chosen-ticker-and-logo">
+                            <span id="chosen-ticker-from" class="swap-coin-ticker">$ONE</span>
+                            <div class="wrap-swap-logos">
+                                <img id="chosen-logo-from" class="swap-logo" src="Images/one.png" alt="">
+                                <div class="swap-network">
+                                    <img id="swap-Anetwork-Logo" src="Images/bnb.png" alt="">
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="chose-to-swap">
-                            <button>From<i class="fa-chose-chevron fa-solid fa-chevron-down"></i></button>
+                            <button id="swap-from-button">From<i
+                                    class="fa-chose-chevron fa-solid fa-chevron-down"></i></button>
                         </div>
                     </div>
-                    <div class="swap-amount">$0.0000</div>
+                    <div class="swap-entry">
+                        <div class="max-input">
+                            <button id="max-btn" class="max-btn"><i
+                                    class="fa-max-icon  fa-solid fa-arrow-right"></i>Max:</button>
+                            <input id="swap-from-amount" class="swap-from-amount" type="text"
+                                placeholder="Type USD $:...">
+                        </div>
+                        <div class="error-box">
+                            <i id="circle-info" class="fa-solid fa-circle-info"></i>
+                            <span id="error-message" class="error-message"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="swap-icon-box">
+                <button id="swap-switch" class="swap-switch-btn">
                     <!-- <img src="Images/swap.png" alt=""> -->
-                    <i class=" swap-icon fa-solid fa-right-left"></i>
-                </div>
+                    <i id="swap-switch-icon" class=" swap-icon fa-solid fa-right-left"></i>
+                </button>
                 <div class="swap-box-b">
                     <div class="chosing-swap-box">
                         <div class="chose-to-swap">
-                            <button><i class="fa-chose-chevron fa-solid fa-chevron-down"></i>To</button>
+                            <button id="swap-to-button"><i
+                                    class="fa-chose-chevron fa-solid fa-chevron-down"></i>To</button>
                         </div>
-                        <span class="swap-label">$USDT</span>
+                        <div class="chosen-ticker-and-logo">
+                            <span id="chosen-ticker-to" class="swap-coin-ticker">$USDT</span>
+                            <div class="wrap-swap-logos">
+                                <img id="chosen-logo-to" class="swap-logo" src="Images/tether.png" alt="">
+                                <div class="swap-network">
+                                    <img id="swap-Bnetwork-Logo" src="Images/bnb.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="swap-amount">0.0000</div>
+                    <div class="swap-entry">
+                        <!-- <input id="swap-to-amount" type="text" placeholder="$0.0000"> -->
+                        <span id="swap-to-amount" class="swap-to-amount">$0.0000</span>
+                        <div class="error-box">
+                            <i id="circle-info" class="fa-solid fa-circle-info"></i>
+                            <!-- <span class="error-message">Low on funds...!</span> -->
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="transaction">
@@ -79,7 +122,7 @@
                     <i class="fa-solid fa-money-check-dollar"></i>
                     Buy
                 </button>
-                <button id="swap" class="trx-buttons">
+                <button id="swap-btn" class="trx-buttons">
                     <i class="fa-solid fa-right-left"></i>
                     Swap
                 </button>
@@ -87,6 +130,18 @@
                     <i class="fa-solid fa-circle-check"></i>
                     Sell
                 </button>
+            </div>
+            <div id="notification-popup" class="notification-popup">
+                <button id="notification-exit-btn" class="notification-exit-btn"><i
+                        class="popup-icon fa-solid fa-xmark"></i></button>
+                <h3> Test Transaction...?</h3>
+                <div class="load-progress"></div>
+                <hr class="notification-hr">
+                <div class="notification-cta">
+                    <button id="notification-cancel" class="notification-btn">Cancel</button>
+                    <button id="notification-ok" class="notification-btn">Ok</button>
+                </div>
+
             </div>
         </div>
 
@@ -167,26 +222,8 @@
             </div>
         </div>
 
-        <!-- COINS LISTED IN THIS EXCHANGE OFTEN APPER HERE:👇 -->
+        <!-- COINS LISTED IN ONET EXCHANGE OFTEN APPER HERE:👇 -->
         <div class="listed-area">
-            <div class="listed-card">
-                <div class="coin-and-ticker">
-                    <div class="coin-logo">
-                        <img src="Images/one.png" alt="">
-                    </div>
-                    <div class="ticker-and-value">
-                        <div class="coin-ticker">$ONE</div>
-                        <div class="coin-value" data-coin="one">$0.00</div>
-                    </div>
-                </div>
-                <div class="percentage-change-box">
-                    <div class="volume-and-amount">
-                        <div class="coin-volume">1B</div>
-                        <div class="coin-amount">0.00</div>
-                    </div>
-                    <button class="percentage-change">%</button>
-                </div>
-            </div>
             <div class="listed-card">
                 <div class="coin-and-ticker">
                     <div class="coin-logo">
@@ -199,8 +236,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">0.001</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">0.001</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -217,8 +254,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">0.012</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">0.012</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -235,8 +272,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">5M</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">5M</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -253,14 +290,32 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">4,743</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">4,743</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
             </div>
 
             <!-- HIDDEN LISTED COINS ARE HERE -->
+            <div class="listed-card hidden-coin">
+                <div class="coin-and-ticker">
+                    <div class="coin-logo">
+                        <img src="Images/one.png" alt="">
+                    </div>
+                    <div class="ticker-and-value">
+                        <div class="coin-ticker">$ONE</div>
+                        <div class="coin-value" data-coin="one">$0.00</div>
+                    </div>
+                </div>
+                <div class="percentage-change-box">
+                    <div class="volume-and-amount">
+                        <div id="coin-volume" class="coin-volume">1B</div>
+                        <div id="coin-amount" class="coin-amount">0.00</div>
+                    </div>
+                    <button class="percentage-change">%</button>
+                </div>
+            </div>
             <div class="listed-card hidden-coin">
                 <div class="coin-and-ticker">
                     <div class="coin-logo">
@@ -273,8 +328,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">500</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">500</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -291,8 +346,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">0.025</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">0.025</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -309,8 +364,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">2T</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">2T</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -327,8 +382,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">82</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">82</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -345,8 +400,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">120,181.53</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">120,181.53</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -363,8 +418,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">76,288.16</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">76,288.16</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -381,8 +436,8 @@
                 </div>
                 <div class="percentage-change-box">
                     <div class="volume-and-amount">
-                        <div class="coin-volume">250</div>
-                        <div class="coin-amount">$0.00</div>
+                        <div id="coin-volume" class="coin-volume">250</div>
+                        <div id="coin-amount" class="coin-amount">$0.00</div>
                     </div>
                     <button class="percentage-change">%</button>
                 </div>
@@ -394,9 +449,235 @@
                 <img src="Images/nft.png" alt="">
             </div>
             <div class="more-listed">
-                <button id="viewMoreBtn">View More</button>
+                <button id="manageTokens">Manage Tokens<i class="fa-solid fa-sliders"></i></button>
+                <button id="viewMoreBtn">View More<i id="fa-chevron-down"
+                        class="fa-view-more fa-solid fa-chevron-down"></i></button>
             </div>
         </div>
+
+
+        <!-- POPUP DETAILS ARE  HERE:.....👇 -->
+        <div class="popup-box">
+            <div class="overlay" id="swap-overlay"></div>
+            <div class="popup" id="popup">
+                <div class="popup-header">
+                    <button id="exit-btn" class="exit-btn"><i class="popup-icon fa-solid fa-xmark"></i></button>
+                    <!-- <i class="fa-solid fa-arrow-right-from-bracket"></i> -->
+                    <div class="handle-bar"></div>
+                    <h3>Select Token:</h3>
+                    <h4>Powered by Onet Technology</h4>
+                    <div class="search-box">
+                        <input id="search-token" class="search-token" type="text" placeholder="Search token here...!">
+                        <!-- <i class="popup-icon fa-solid fa-magnifying-glass"></i> -->
+                        <div class="swap-networks">
+                            <img src="Images/bnb.png" alt="">
+                            <i class="popup-icon fa-solid fa-chevron-down"></i>
+                            <!-- <button id="network-btn" class="network-btn">Network</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="listed-popup">
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/one.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$ONE</span>
+                                <div class="coin-value" data-coin="one">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">1B</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/tether.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$USDT</span>
+                                <div class="coin-value" data-coin="tether">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">10</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/btc.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$BTC</span>
+                                <div class="coin-value" data-coin="bitcoin">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">0.001</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/eth.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$ETH</span>
+                                <div class="coin-value" data-coin="ethereum">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">0.012</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/bnb.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$BNB</span>
+                                <div class="coin-value" data-coin="binancecoin">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">0.025</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/rkc.jpg" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$RKC</span>
+                                <div class="coin-value" data-coin="rockycat">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">5M</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/pi.jpg" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$Pi</span>
+                                <div class="coin-value" data-coin="pi">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">4,743</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/ion.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$ICE</span>
+                                <div class="coin-value" data-coin="ice">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">73,381.53</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/dogs.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$DOGS</span>
+                                <div class="coin-value" data-coin="dogs">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">120,181.53</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/sol.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$SOL</span>
+                                <div class="coin-value" data-coin="solana">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">82</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/snow.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$SNOW</span>
+                                <div class="coin-value" data-coin="snowman">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">2T</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/dogecoin.png" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$DOGE</span>
+                                <div class="coin-value" data-coin="dogecoin">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">250</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                    <div class="popup-card">
+                        <div class="coin-and-ticker">
+                            <div class="coin-logo">
+                                <img src="Images/core.jpg" alt="">
+                            </div>
+                            <div class="ticker-and-value">
+                                <span class="coin-ticker">$CORE</span>
+                                <div class="coin-value" data-coin="coredao">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-and-amount">
+                            <div id="coin-volume" class="popup-coin-volume">500</div>
+                            <div id="coin-amount" class="popup-coin-amount">0.00</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
         <footer class="footer">
             <div class="footer-icon active">
                 <i class="fa-footer fa-solid fa-house"></i>
